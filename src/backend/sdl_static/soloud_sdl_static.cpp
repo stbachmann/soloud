@@ -79,7 +79,9 @@ namespace SoLoud
 		as.callback = soloud_sdlstatic_audiomixer;
 		as.userdata = (void*)aSoloud;
 
-		if (SDL_OpenAudio(&as, &gActiveAudioSpec) < 0)
+        // WebAudio fix: don't try to initialize with Float32 samples, this
+        // this doesn't work on WebAudio
+		//if (SDL_OpenAudio(&as, &gActiveAudioSpec) < 0)
 		{
 			as.format = AUDIO_S16;
 			if (SDL_OpenAudio(&as, &gActiveAudioSpec) < 0 || gActiveAudioSpec.format != AUDIO_S16)
